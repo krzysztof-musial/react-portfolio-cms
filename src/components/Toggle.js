@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
+import { ThemeContext } from '../contexts/ThemeContext';
 
 export default function Toggle() {
-    const [darkMode, setDarkMode] = useState(false);
+    const { darkMode, handleThemeChange } = useContext(ThemeContext);
     const darkClass = {
         bg: "bg-emerald-400 hover:bg-emerald-500",
         toggle: "ml-4"
@@ -9,9 +10,6 @@ export default function Toggle() {
     const lightClass = {
         bg: "bg-indigo-600 hover:bg-indigo-500",
         toggle: "ml-0"
-    }
-    function handleThemeChange() {
-        setDarkMode(!darkMode)
     }
 
     return (
