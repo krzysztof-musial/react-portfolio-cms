@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from "react-router-dom"
-import { useAuth } from "../contexts/AuthContext"
+import { AuthContext } from "../contexts/AuthContext"
 import { motion } from 'framer-motion'
 
 export default function Navigation() {
-    const { currentUser, logout } = useAuth()
+    const { currentUser, logout } = useContext(AuthContext)
 
     function handleLogout() {
         logout()

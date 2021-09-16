@@ -1,13 +1,13 @@
-import React, { useRef } from 'react'
+import React, { useRef, useContext } from 'react'
 import { motion } from "framer-motion"
-import { useAuth } from "../contexts/AuthContext"
+import { AuthContext } from "../contexts/AuthContext"
 
 export default function Admin() {
     // Variables
     const emailRef = useRef()
     const passwordRef = useRef()
 
-    const { currentUser, login, logout } = useAuth()
+    const { currentUser, login, logout } = useContext(AuthContext)
     // Methods
     function handleLogin(e) {
         e.preventDefault()
