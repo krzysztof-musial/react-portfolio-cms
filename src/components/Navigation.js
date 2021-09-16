@@ -14,7 +14,8 @@ export default function Navigation() {
         <motion.div 
             className="w-full bg-gradient-to-r from-indigo-600 to-sky-500 dark:from-emerald-600 dark:to-teal-800 text-white text-xs px-4 py-2 flex justify-between" 
             initial={{ y: -30 }} 
-            animate={{ y: 0 }}
+            animate={{ y: 0 }} 
+            transition={{ type: "tween" }}
         >
             <div className="flex space-x-2">
                 <Link to="/" className="hover:underline">Home</Link>
