@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { motion } from "framer-motion"
 import { useAuth } from "../contexts/AuthContext"
 
-export default function Login() {
+export default function Admin() {
     // Variables
     const emailRef = useRef()
     const passwordRef = useRef()
@@ -29,7 +29,7 @@ export default function Login() {
                     <p className="text-3xl font-bold">{currentUser.email}</p>
                     <p className="text-2xl font-semibold">You are already logged in.</p>
                 </div>
-                <button onClick={handleLogout} className="text-sm font-semibold rounded-xl py-4 bg-indigo-600 text-white cursor-pointer hover:bg-indigo-500 transition">Logout</button>
+                <button onClick={handleLogout} className="text-sm font-semibold rounded-xl py-4 bg-indigo-600 dark:bg-emerald-500 text-white cursor-pointer hover:bg-indigo-500 dark:hover:bg-emerald-400 transition">Logout</button>
             </motion.div>
             ) : (
             <motion.div 

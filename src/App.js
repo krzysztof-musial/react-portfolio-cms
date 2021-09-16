@@ -6,7 +6,7 @@ import { ThemeContext } from "./contexts/ThemeContext"
 // Components
 import Navigation from './components/Navigation'
 import Home from './views/Home'
-import Login from './views/Login'
+import Admin from './views/Admin'
 
 export default function App() {
   const { darkMode } = useContext(ThemeContext);
@@ -21,7 +21,7 @@ export default function App() {
           {/* Content */}
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
+            <Route path="/admin" component={Admin} />
           </Switch>
         </main>
       </Router>

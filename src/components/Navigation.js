@@ -18,7 +18,7 @@ export default function Navigation() {
         >
             <div className="flex space-x-2">
                 <Link to="/" className="hover:underline">Home</Link>
-                <Link to="/login" className="hover:underline">Login</Link>
+                <Link to="/admin" className="hover:underline">Admin</Link>
             </div>
             {currentUser ? (
               <button onClick={handleLogout}>Logout {currentUser.email}</button>
