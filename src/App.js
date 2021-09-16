@@ -9,9 +9,10 @@ import Login from './views/Login'
 
 export default function App() {
   return (
+    <div className="dark">
     <AuthProvider>
       <Router>
-        <main className="w-full min-h-screen flex flex-col space-y-8">
+        <main className="w-full min-h-screen flex flex-col bg-white text-black dark:bg-gray-900 dark:text-white">
           {/* Nav */}
           <Navigation />
           {/* Content */}
@@ -22,5 +23,6 @@ export default function App() {
         </main>
       </Router>
     </AuthProvider>
+    </div>
   )
 }

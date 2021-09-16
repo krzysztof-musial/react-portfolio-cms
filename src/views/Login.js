@@ -18,7 +18,7 @@ export default function Login() {
     }
     // HTML
     return (
-        <div className="max-w-md m-auto flex flex-col space-y-4 p-4">
+        <div className="max-w-md m-auto mt-8 flex flex-col space-y-4 p-4">
             {currentUser ? (
             <motion.div 
                 className="flex flex-col space-y-8" 
