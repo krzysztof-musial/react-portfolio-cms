@@ -3,9 +3,17 @@ import React, { useState } from 'react'
 const  ThemeContext  =  React.createContext(false);
 
 const ThemeProvider = ({ children }) => {
-    const [darkMode, setDarkMode] = useState(false);
+    const [darkMode, setDarkMode] = useState(() => {
+        return JSON.parse(localStorage.getItem('darkMode')) || false
+    });
     function handleThemeChange() {
-        setDarkMode(!darkMode)
+        if (darkMode === false) {
+            localStorage.setItem('darkMode', JSON.stringify(true))
+            setDarkMode(true)
+        } else {
+            localStorage.setItem('darkMode', JSON.stringify(false))
+            setDarkMode(false)
+        }
     }
 
     return (
