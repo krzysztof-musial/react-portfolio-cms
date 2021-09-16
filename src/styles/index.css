@@ -12,8 +12,8 @@ input[type=email], input[type=password] {
 }
 
 input[type=submit] {
-    @apply text-sm font-semibold rounded-xl py-4 bg-indigo-600 text-white cursor-pointer transition;
+    @apply text-sm font-semibold rounded-xl py-4 bg-indigo-600 dark:bg-emerald-500 text-white cursor-pointer transition;
 }
 input[type=submit]:hover {
-    @apply bg-indigo-500;
+    @apply bg-indigo-500 dark:bg-emerald-400;
 }

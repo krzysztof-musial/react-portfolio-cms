@@ -12,7 +12,7 @@ export default function Navigation() {
 
     return (
         <motion.div 
-            className="w-full bg-gradient-to-r from-indigo-600 to-sky-500 text-white text-xs px-4 py-2 flex justify-between" 
+            className="w-full bg-gradient-to-r from-indigo-600 to-sky-500 dark:from-violet-600 dark:to-orange-400 text-white text-xs px-4 py-2 flex justify-between" 
             initial={{ y: -30 }} 
             animate={{ y: 0 }}
         >

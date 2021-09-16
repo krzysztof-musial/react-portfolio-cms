@@ -4,7 +4,7 @@ import Toggle from './Toggle'
 
 export default function Header() {
     return (
-        <main className="max-w-screen-md m-auto p-4 sm:p-8 flex items-center justify-between">
+        <main className="max-w-screen-md m-auto p-8 flex items-center justify-between">
             <div className="flex items-center space-x-3">
                 <Link to="/" className="bg-indigo-600 h-10 w-10 rounded-lg flex justify-center items-center hover:bg-indigo-500 cursor-pointer dark:bg-gray-700 dark:hover:bg-gray-600">
                     <svg className="w-6 h-6 fill-current text-white" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
