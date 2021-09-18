@@ -4,9 +4,12 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { AuthProvider } from "./contexts/AuthContext"
 import { ThemeContext } from "./contexts/ThemeContext"
 // Components
+import GuestRoute from './components/GuestRoute'
+import PrivateRoute from './components/PrivateRoute'
 import Navigation from './components/Navigation'
 import Home from './views/Home'
-import Admin from './views/Admin'
+import Login from "./views/Login"
+import Admin from "./views/Admin"
 
 export default function App() {
   const { darkMode } = useContext(ThemeContext);
@@ -21,7 +24,8 @@ export default function App() {
           {/* Content */}
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/admin" component={Admin} />
+            <GuestRoute path="/login" component={Login} />
+            <PrivateRoute path="/admin" component={Admin} />
           </Switch>
         </main>
       </Router>
