@@ -3,6 +3,7 @@ import React from 'react'
 import Header from '../components/Header'
 // 
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 export default function Home() {
   const projects = [
@@ -43,13 +44,17 @@ export default function Home() {
           >
             {projects.map((project, i) => {
               return (
-                <motion.div 
+                <Link 
+                  to={{ pathname: `/id/${i}` }} 
                   key={project.title} 
-                  className="bg-gray-200 dark:bg-gray-600 sm:rounded-lg aspect-w-1 aspect-h-1 cursor-pointer" 
-                  variants={projectMotion} 
-                  whileHover={{ scale: 1.1 }} 
-                  whileTap={{ scale: 0.9 }} 
-                ></motion.div>
+                >
+                  <motion.div 
+                    className="bg-gray-200 dark:bg-gray-600 sm:rounded-lg aspect-w-1 aspect-h-1 cursor-pointer" 
+                    variants={projectMotion} 
+                    whileHover={{ scale: 1.1 }} 
+                    whileTap={{ scale: 0.9 }} 
+                  ></motion.div>
+                </Link>
               )
             })}
           </motion.div>
