@@ -18,6 +18,7 @@ export default function Home() {
     {title: 9},
     {title: 10},
   ]
+  // Animations
   const projectsMotion = {
     hidden: { opacity: 0 },
     show: {
