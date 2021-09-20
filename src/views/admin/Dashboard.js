@@ -1,7 +1,7 @@
 import React from 'react'
 import AdminLayout from '../../layouts/AdminLayout'
 // Firebase
-// import { app } from '../../firebase'
+import { db } from '../../firebase'
 
 export default function Dashboard() {
     return (
