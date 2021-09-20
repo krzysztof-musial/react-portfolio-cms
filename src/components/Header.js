@@ -13,7 +13,9 @@ export default function Header() {
                     </svg>
                 </Link>
                 <div className="flex flex-col">
-                    <p className="text-md font-bold">Krzysztof Musiał</p>
+                    <Link to="/admin">
+                        <p className="text-md font-bold">Krzysztof Musiał</p>
+                    </Link>
                     <p className="text-xs opacity-70">Web Developer</p>
                 </div>
             </div>

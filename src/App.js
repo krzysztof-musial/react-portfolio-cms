@@ -6,7 +6,7 @@ import { ThemeContext } from "./contexts/ThemeContext"
 // Components
 import GuestRoute from './components/GuestRoute'
 import PrivateRoute from './components/PrivateRoute'
-import Navigation from './components/Navigation'
+// import Navigation from './components/Navigation'
 import Home from './views/Home'
 import Login from "./views/Login"
 import Admin from "./views/Admin"
@@ -21,7 +21,7 @@ export default function App() {
       <Router>
         <main className="w-full min-h-screen flex flex-col bg-white text-black dark:bg-gray-900 dark:text-white">
           {/* Nav */}
-          <Navigation />
+          {/* <Navigation /> */}
           {/* Content */}
           <Switch>
             <Route exact path="/" component={Home} />
