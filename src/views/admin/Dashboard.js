@@ -1,13 +1,22 @@
 import React from 'react'
-// import Settings from '../../components/Settings'
 import AdminLayout from '../../layouts/AdminLayout'
+// Firebase
+// import { app } from '../../firebase'
 
 export default function Dashboard() {
     return (
         <div>
             <AdminLayout 
-                content={'Dashboard'}
+                content={<Content />}
             />
+        </div>
+    )
+}
+
+function Content() {
+    return (
+        <div>
+            Dashboard
         </div>
     )
 }
