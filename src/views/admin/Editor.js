@@ -39,7 +39,7 @@ function Preview({ project, setBlockHover, blockHover }) {
     return (
         <div className="p-2">
             {project?.blocks.length > 0 ? 
-                <ul className="flex flex-col space-y-16">
+                <ul className="flex flex-col space-y-16 max-w-screen-md m-auto">
                     {project.blocks.map((block, index) => (
                         <motion.li 
                             layout
@@ -155,7 +155,7 @@ function Settings({ project, setProject, updateProject, setBlockHover, blockHove
                     </div>
                 </div>
                 {showBlocks &&
-                <div>
+                <div className="flex flex-col space-y-4">
                     {project?.blocks.length > 0 ? 
                         <ul className="flex flex-col space-y-2">
                             {project.blocks.map((block, index) => (
