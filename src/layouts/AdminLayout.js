@@ -5,9 +5,9 @@ import Toggle from '../components/Toggle'
 
 export default function AdminLayout(props) {
     const [isMenu, setIsMenu] = useState(true)
-    const [isSettings, setIsSettings] = useState(false)
+    const [isSettings, setIsSettings] = useState(true)
     const menuWidth = '220px'
-    const settingsWidth = '220px'
+    const settingsWidth = '350px'
 
     return (
         <main className="flex overflow-x-hidden">

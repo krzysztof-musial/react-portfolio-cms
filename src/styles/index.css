@@ -7,7 +7,7 @@
 @tailwind components;
 @tailwind utilities;
 
-input[type=email], input[type=password] {
+/* input[type=text], input[type=email], input[type=password] {
     @apply text-black rounded-lg border-gray-300 focus:border-indigo-600;
 }
 
@@ -16,4 +16,4 @@ input[type=submit] {
 }
 input[type=submit]:hover {
     @apply bg-indigo-500 dark:bg-emerald-400;
-}
+} */

@@ -10,7 +10,7 @@ export default function Admin() {
         <div>
             <Switch>
                 <Route exact path={path} component={Dashboard} />
-                <Route path={`${path}/editor`} component={Editor} />
+                <Route path={`${path}/editor/:id`} component={Editor} />
             </Switch>
         </div>
     )
