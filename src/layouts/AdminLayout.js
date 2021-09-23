@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import Menu from '../components/Menu'
-import Toggle from '../components/Toggle'
 
 export default function AdminLayout(props) {
     const [isMenu, setIsMenu] = useState(true)
@@ -37,7 +36,6 @@ export default function AdminLayout(props) {
                         </button>
                     </div>
                     <div className="flex space-x-2 items-center">
-                        <Toggle />
                         {props.settings && 
                         <button 
                             className={`p-1.5 rounded-lg transition-all hover:bg-gray-100 dark:hover:bg-gray-700 ${isSettings ? "" : ""}`} 

@@ -3,13 +3,12 @@ import { useParams } from 'react-router'
 import AdminLayout from '../../layouts/AdminLayout'
 import { doc, getDoc, updateDoc } from "firebase/firestore"; 
 import { db } from '../../firebase'
-import { Paragraph, ParagraphEditor } from '../../components/Blocks';
+import { ParagraphEditor } from '../../components/Blocks';
 import { motion } from 'framer-motion';
 
 export default function Editor() {
     let { id } = useParams()
     const [project, setProject] = useState()
-    const [blockHover, setBlockHover] = useState()
 
     useEffect(() => {
         const unsubscribe = getDoc(doc(db, "projects", id)).then((data) => {
@@ -28,50 +27,18 @@ export default function Editor() {
     return (
         <div>
             <AdminLayout 
-                content={<Preview project={ project } blockHover={blockHover} setBlockHover={setBlockHover} />}
-                settings={<Settings project={ project } setProject={ setProject } updateProject={ updateProject } blockHover={blockHover} setBlockHover={setBlockHover} />}
+                content={<Preview project={ project } setProject={ setProject } updateProject={ updateProject } />}
+                settings={<Settings project={ project } setProject={ setProject } updateProject={ updateProject } />}
             />
         </div>
     )
 }
 
-function Preview({ project, setBlockHover, blockHover }) {
-    return (
-        <div className="p-2">
-            {project?.blocks.length > 0 ? 
-                <ul className="flex flex-col space-y-16 max-w-screen-md m-auto">
-                    {project.blocks.map((block, index) => (
-                        <motion.li 
-                            layout
-                            transition={spring}
-                            key={block.id} 
-                            className={`p-2 rounded-lg border-2 border-transparent ${blockHover === index ? 'border-sky-400' : ''}`} 
-                            onMouseEnter={() => setBlockHover(index)} 
-                            onMouseLeave={() => setBlockHover(null)}
-                        >
-                            {block.type === 'paragraph' && <Paragraph block={block} />}
-                        </motion.li>
-                    ))}
-                </ul>
-                : 
-                <div>brak bloków</div>
-            }
-        </div>
-    )
-}
-
-function Settings({ project, setProject, updateProject, setBlockHover, blockHover }) {
-    const [showDetails, setShowDetails] = useState(true)
-    const [showBlocks, setShowBlocks] = useState(true)
-    const [showTerminal, setShowTerminal] = useState(false)
-    const nameRef = useRef()
-
-    function updateDetails(event) {
-        event.preventDefault()
-        setProject((projectOld) => ({
-            ...projectOld,
-            name: nameRef.current.value,
-        }))
+function Preview({ project, setProject }) {
+    const spring = {
+        type: "spring",
+        damping: 25,
+        stiffness: 120
     }
     function updateBlocks(blocks) {
         setProject((projectOld) => ({
@@ -79,12 +46,28 @@ function Settings({ project, setProject, updateProject, setBlockHover, blockHove
             blocks: blocks
         }))
     }
-    function addBlock() {
+    function addBlock(type) {
         let blocks = project.blocks
-        const block = {
-            id: Date.now(),
-            type: 'paragraph',
-            content: 'Paragraph'
+        let block = {}
+        if (type === 'paragraph') {
+            block = {
+                id: Date.now(),
+                type: 'paragraph',
+                content: {
+                    title: 'Title',
+                    paragraph: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium, cupiditate veniam! Ut praesentium laborum veniam molestias officiis quos est dolorum repellat minus odio ratione, nulla beatae temporibus nam. Eaque, eos. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Totam dicta corrupti itaque expedita officia, necessitatibus quod nostrum cupiditate libero qui ex et cum repudiandae nulla. Tenetur dignissimos officia sed quidem!'
+                }
+            }
+        }
+        if (type === 'heading') {
+            block = {
+                id: Date.now(),
+                type: 'heading',
+                content: {
+                    title: 'Lorem ipsum dolor sit amet consectetur',
+                    subtitle: 'Ipsum deserunt quod, quidem beatae accusantium'
+                }
+            }
         }
         blocks.push(block)
         updateBlocks(blocks)
@@ -116,6 +99,44 @@ function Settings({ project, setProject, updateProject, setBlockHover, blockHove
     }
 
     return (
+        <div className="max-w-screen-md m-auto">
+            {project?.blocks.length > 0 ? 
+                <ul className="flex flex-col space-y-16 pb-16">
+                    {project.blocks.map((block, index) => (
+                        <motion.li 
+                            layout
+                            transition={spring}
+                            key={block.id}
+                        >
+                            {block.type === 'paragraph' && <ParagraphEditor block={block} index={index} updateBlock={updateBlock} moveBlock={moveBlock} deleteBlock={deleteBlock} />}
+                        </motion.li>
+                    ))}
+                </ul>
+                : 
+                <p>No blocks</p>
+            }
+            <div className="w-full max-w-screen-md m-auto px-4 sm:px-8">
+                <button onClick={() => addBlock('paragraph')}>Paragraph</button>
+                <button onClick={() => addBlock('heading')}>Heading</button>
+            </div>
+        </div>
+    )
+}
+
+function Settings({ project, setProject, updateProject }) {
+    const [showDetails, setShowDetails] = useState(true)
+    const [showTerminal, setShowTerminal] = useState(false)
+    const nameRef = useRef()
+
+    function updateDetails(event) {
+        event.preventDefault()
+        setProject((projectOld) => ({
+            ...projectOld,
+            name: nameRef.current.value,
+        }))
+    }
+
+    return (
         <div className="p-4 border-l border-gray-200 bg-gray-50 h-screen flex flex-col space-y-8">
             <button onClick={updateProject}>Save</button>
             {/* Details */}
@@ -136,45 +157,6 @@ function Settings({ project, setProject, updateProject, setBlockHover, blockHove
                 {showDetails &&
                 <div>
                     <input type="text" defaultValue={project?.name} placeholder="Name" ref={nameRef} onChange={updateDetails} />
-                </div>
-                }
-            </div>
-            {/* Blocks */}
-            <div className="flex flex-col space-y-4">
-                <div className="flex items-center justify-between cursor-pointer" onClick={() => setShowBlocks(!showBlocks)}>
-                    <p className="uppercase text-xs font-semibold">Blocks</p>
-                    <div>
-                        {showBlocks &&                         
-                        <svg className="w-4 h-4 stroke-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19.9201 15.0499L13.4001 8.52989C12.6301 7.75989 11.3701 7.75989 10.6001 8.52989L4.08008 15.0499" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>}
-                        {!showBlocks &&                          
-                        <svg className="w-4 h-4 stroke-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19.9201 8.94995L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.94995" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>}
-                    </div>
-                </div>
-                {showBlocks &&
-                <div className="flex flex-col space-y-4">
-                    {project?.blocks.length > 0 ? 
-                        <ul className="flex flex-col space-y-2">
-                            {project.blocks.map((block, index) => (
-                                <motion.li 
-                                    layout
-                                    transition={spring}
-                                    key={block.id} 
-                                    className={`flex flex-col space-y-2 border-2 rounded-lg border-transparent ${blockHover === index ? 'border-sky-400' : ''}`} 
-                                    onMouseEnter={() => setBlockHover(index)} 
-                                    onMouseLeave={() => setBlockHover(null)}
-                                >
-                                    {block.type === 'paragraph' && <ParagraphEditor block={block} index={index} updateBlock={updateBlock} moveBlock={moveBlock} deleteBlock={deleteBlock} />}
-                                </motion.li>
-                            ))}
-                        </ul>
-                        : 
-                        <div>brak bloków</div>
-                    }
-                    <button onClick={addBlock}>Add Block</button>
                 </div>
                 }
             </div>
@@ -202,9 +184,3 @@ function Settings({ project, setProject, updateProject, setBlockHover, blockHove
         </div>
     )
 }
-
-const spring = {
-    type: "spring",
-    damping: 25,
-    stiffness: 120
-};

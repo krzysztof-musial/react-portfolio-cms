@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { AuthContext } from "../contexts/AuthContext"
 import { Link, NavLink } from 'react-router-dom'
+import Toggle from '../components/Toggle'
 
 export default function Menu() {
     const { logout } = useContext(AuthContext)
@@ -54,6 +55,7 @@ export default function Menu() {
             </div>
             {/* Bottom */}
             <div>
+                <Toggle />
                 <button className="rounded-lg py-2 px-4 w-full text-sm font-semibold text-black" onClick={handleLogout}>Logout</button>
             </div>
         </div>
