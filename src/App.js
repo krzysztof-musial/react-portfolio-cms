@@ -10,7 +10,7 @@ import PrivateRoute from './components/PrivateRoute'
 import Home from './views/Home'
 import Login from "./views/Login"
 import Admin from "./views/Admin"
-import CaseStudy from "./views/CaseStudy"
+import Project from "./views/Project"
 
 export default function App() {
   const { darkMode } = useContext(ThemeContext);
@@ -27,7 +27,7 @@ export default function App() {
             <Route exact path="/" component={Home} />
             <GuestRoute path="/login" component={Login} />
             <PrivateRoute path="/admin" component={Admin} />
-            <Route path="/id/:id" component={CaseStudy}/>
+            <Route path="/id/:id" component={Project}/>
           </Switch>
         </main>
       </Router>

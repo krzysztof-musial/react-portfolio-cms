@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { collection, addDoc, onSnapshot } from "firebase/firestore"; 
 import { db } from '../../firebase'
 
-export default function Dashboard() {
+export default function Projects() {
     return (
         <div>
             <AdminLayout 
@@ -25,8 +25,6 @@ function Content() {
 
 function ProjectsManager() {
     const [projects, setProjects] = useState([])
-
-    // const projectSlugRef = useRef()
     const projectNameRef = useRef()
 
     useEffect(() => {
@@ -44,34 +42,24 @@ function ProjectsManager() {
 
     async function handleAddProject(e) {
         e.preventDefault()
-        // if (checkIfAvalaible(projects, projectSlugRef.current.value)) {
-        //     console.log("Project of this slug already exists!")
-        // } else {
-            await addDoc(collection(db, "projects"), {
-                name: projectNameRef.current.value,
-                // slug: projectSlugRef.current.value,
-                published: false,
-                blocks: []
-            });
-        // }
+        await addDoc(collection(db, "projects"), {
+            name: projectNameRef.current.value,
+            published: false,
+            blocks: []
+        });
     }
 
-    // function checkIfAvalaible(value) {
-    //     return projects.some((project) => project.projectSlug === value)
-    // }
-
     return (
-        <div className="p-4">
+        <div className="p-4 flex flex-col space-y-4">
             <form onSubmit={handleAddProject} className="w-full flex items-center space-x-2">
-                {/* <input type="text" ref={projectSlugRef} placeholder="Slug" className="w-full" /> */}
                 <input type="text" ref={projectNameRef} placeholder="Name" className="w-full" />
                 <input type="submit" value="Add Project" className="px-4" />
             </form>
             {projects.map(project => {
                 return (
-                    <div key={project.id}>
+                    <div key={project.id} className="flex space-x-4 items-center">
                         <Link to={`/admin/editor/${project.id}`}>Edit</Link>
-                        <pre>{JSON.stringify(project)}</pre>
+                        <p>{project.name}</p>
                     </div>
                 )})
             }

@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../components/Header'
 
-export default function CaseStudy(props) {
+export default function Project(props) {
     console.log(props.match.params.id)
     return (
         <div>

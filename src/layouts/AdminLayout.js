@@ -12,7 +12,7 @@ export default function AdminLayout(props) {
         <main className="flex overflow-x-hidden">
             {/* Menu */}
             <motion.div 
-                className="flex-shrink-0 min-h-screen" 
+                className="flex-shrink-0 h-screen" 
                 style={{ width: menuWidth }} 
                 initial={{ marginLeft: isMenu ? 0 : '-' + menuWidth }} 
                 animate={{ marginLeft: isMenu ? 0 : '-' + menuWidth }}
@@ -61,14 +61,16 @@ export default function AdminLayout(props) {
             {/* Settings */}
             {props.settings &&             
             <motion.div 
-                className="flex-shrink-0 min-h-screen" 
+                className="flex-shrink-0 h-screen" 
                 style={{ width: settingsWidth }} 
                 initial={{ marginRight: isSettings ? 0 : '-' + settingsWidth }}
                 animate={{ marginRight: isSettings ? 0 : '-' + settingsWidth }}
                 exit={{ marginRight: '-' + settingsWidth }} 
                 transition={{ type: "tween" }}
             >
-                {props.settings}
+                <div className="sticky top-0 left-0 h-full">
+                    {props.settings}
+                </div>
             </motion.div>
             }
         </main>

@@ -11,7 +11,7 @@ export default function Menu() {
     }
 
     return (
-        <div className="p-4 flex flex-col justify-between min-h-full">
+        <div className="p-4 flex flex-col justify-between h-full">
             {/* Top */}
             <div className="flex flex-col space-y-8">
                 <div className="flex items-center space-x-3">
@@ -27,7 +27,7 @@ export default function Menu() {
                     </div>
                 </div>
                 {/* Nav */}
-                <div className="flex flex-col space-y-4">
+                <div className="flex flex-col space-y-4 pl-1.5">
                     <NavLink to="/admin" className="opacity-40" activeClassName="opacity-100" exact>
                         <div className="flex items-center space-x-3">
                             <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,7 +36,7 @@ export default function Menu() {
                                 <path opacity="0.4" d="M21.5 19.9V17.1C21.5 15.6 20.86 15 19.27 15H15.23C13.64 15 13 15.6 13 17.1V19.9C13 21.4 13.64 22 15.23 22H19.27C20.86 22 21.5 21.4 21.5 19.9Z" />
                                 <path opacity="0.4" d="M11 6.9V4.1C11 2.6 10.36 2 8.77 2H4.73C3.14 2 2.5 2.6 2.5 4.1V6.9C2.5 8.4 3.14 9 4.73 9H8.77C10.36 9 11 8.4 11 6.9Z" />
                             </svg>
-                            <p className="text-sm font-medium">Dashboard</p>
+                            <p className="text-sm font-medium">Projects</p>
                         </div>
                     </NavLink>
                     <NavLink to="/admin/messages" className="opacity-40" activeClassName="opacity-100">
@@ -54,9 +54,11 @@ export default function Menu() {
                 </div>
             </div>
             {/* Bottom */}
-            <div>
-                <Toggle />
-                <button className="rounded-lg py-2 px-4 w-full text-sm font-semibold text-black" onClick={handleLogout}>Logout</button>
+            <div className="flex space-x-4 items-center justify-between">
+                <button className="rounded-lg py-2 bg-indigo-600 px-4 w-full text-sm font-semibold text-white" onClick={handleLogout}>Logout</button>
+                <div>
+                    <Toggle />
+                </div>
             </div>
         </div>
     )

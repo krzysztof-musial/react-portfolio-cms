@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 import AdminLayout from '../../layouts/AdminLayout'
 import { doc, getDoc, updateDoc } from "firebase/firestore"; 
 import { db } from '../../firebase'
-import { ParagraphEditor } from '../../components/Blocks';
+import { ParagraphEditor, HeadingEditor } from '../../components/Blocks';
 import { motion } from 'framer-motion';
 
 export default function Editor() {
@@ -35,11 +35,7 @@ export default function Editor() {
 }
 
 function Preview({ project, setProject }) {
-    const spring = {
-        type: "spring",
-        damping: 25,
-        stiffness: 120
-    }
+    const [menu, setMenu] = useState(false)
     function updateBlocks(blocks) {
         setProject((projectOld) => ({
             ...projectOld,
@@ -71,6 +67,7 @@ function Preview({ project, setProject }) {
         }
         blocks.push(block)
         updateBlocks(blocks)
+        setMenu(false)
     }
     function updateBlock(index, content) {
         let blocks = project.blocks
@@ -99,25 +96,41 @@ function Preview({ project, setProject }) {
     }
 
     return (
-        <div className="max-w-screen-md m-auto">
-            {project?.blocks.length > 0 ? 
+        <div className="max-w-screen-md m-auto mb-16">
+            {project?.blocks.length > 0 && 
                 <ul className="flex flex-col space-y-16 pb-16">
                     {project.blocks.map((block, index) => (
                         <motion.li 
                             layout
-                            transition={spring}
                             key={block.id}
                         >
                             {block.type === 'paragraph' && <ParagraphEditor block={block} index={index} updateBlock={updateBlock} moveBlock={moveBlock} deleteBlock={deleteBlock} />}
+                            {block.type === 'heading' && <HeadingEditor block={block} index={index} updateBlock={updateBlock} moveBlock={moveBlock} deleteBlock={deleteBlock} />}
                         </motion.li>
                     ))}
                 </ul>
-                : 
-                <p>No blocks</p>
             }
-            <div className="w-full max-w-screen-md m-auto px-4 sm:px-8">
-                <button onClick={() => addBlock('paragraph')}>Paragraph</button>
-                <button onClick={() => addBlock('heading')}>Heading</button>
+            <div className="w-full max-w-screen-md m-auto px-4 sm:px-8 flex space-x-4">
+                <button 
+                    onClick={() => setMenu(!menu)} 
+                    className="rounded-md w-6 h-6 flex justify-center items-center border border-gray-200 hover:bg-gray-100"
+                >
+                    <svg className={`fill-current text-black w-4 h-4 transition ${menu ? 'transform rotate-45' : ''}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 13V19H11V13H5V11H11V5H13V11H19V13H13Z" />
+                    </svg>
+                </button>
+                {menu && 
+                    <div className="flex items-center space-x-2">
+                        <button 
+                            onClick={() => addBlock('paragraph')} 
+                            className="rounded-md h-6 w-6 flex justify-center items-center border border-gray-200 text-sm font-semibold hover:bg-gray-100"
+                        >P</button>
+                        <button 
+                            onClick={() => addBlock('heading')} 
+                            className="rounded-md h-6 w-6 flex justify-center items-center border border-gray-200 text-sm font-semibold hover:bg-gray-100"
+                        >H</button>
+                    </div>
+                }
             </div>
         </div>
     )
@@ -127,17 +140,25 @@ function Settings({ project, setProject, updateProject }) {
     const [showDetails, setShowDetails] = useState(true)
     const [showTerminal, setShowTerminal] = useState(false)
     const nameRef = useRef()
+    const categoryRef = useRef()
 
     function updateDetails(event) {
         event.preventDefault()
         setProject((projectOld) => ({
             ...projectOld,
             name: nameRef.current.value,
+            category: categoryRef.current.value
+        }))
+    }
+    function updatePublished(event) {
+        setProject((projectOld) => ({
+            ...projectOld,
+            published: event.target.checked,
         }))
     }
 
     return (
-        <div className="p-4 border-l border-gray-200 bg-gray-50 h-screen flex flex-col space-y-8">
+        <div className="p-4 border-l border-gray-200 bg-gray-50 h-full flex flex-col space-y-8">
             <button onClick={updateProject}>Save</button>
             {/* Details */}
             <div className="flex flex-col space-y-4">
@@ -155,9 +176,15 @@ function Settings({ project, setProject, updateProject }) {
                     </div>
                 </div>
                 {showDetails &&
-                <div>
-                    <input type="text" defaultValue={project?.name} placeholder="Name" ref={nameRef} onChange={updateDetails} />
-                </div>
+                    <div>
+                    {project &&
+                        <div className="flex flex-col space-y-1">
+                            <input type="checkbox" defaultChecked={project.published} onChange={updatePublished} />
+                            <input type="text" defaultValue={project?.name} placeholder="Name" ref={nameRef} onChange={updateDetails} />
+                            <input type="text" defaultValue={project?.category} placeholder="Category" ref={categoryRef} onChange={updateDetails} />
+                        </div>
+                    }
+                    </div>
                 }
             </div>
             {/* Terminal */}
