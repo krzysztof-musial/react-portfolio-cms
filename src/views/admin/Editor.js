@@ -2,13 +2,16 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useParams } from 'react-router'
 import AdminLayout from '../../layouts/AdminLayout'
 import { doc, getDoc, updateDoc } from "firebase/firestore"; 
-import { db } from '../../firebase'
+import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import { db, storage } from '../../firebase'
 import { ParagraphEditor, HeadingEditor } from '../../components/Blocks';
 import { motion } from 'framer-motion';
 
 export default function Editor() {
     let { id } = useParams()
     const [project, setProject] = useState()
+    const [assets, setAssets] = useState([])
+    const [assetsToUpload, setAssetsToUpload] = useState([])
 
     useEffect(() => {
         const unsubscribe = getDoc(doc(db, "projects", id)).then((data) => {
@@ -17,17 +20,53 @@ export default function Editor() {
         return unsubscribe
     }, [id])
 
+    useEffect(() => {
+        const unsubscribe = listAll(ref(storage, id)).then((res) => {
+            setAssets([])
+            res.items.forEach((item) => {
+                getDownloadURL(item).then((asset) => {
+                    let object = {
+                        name: item.name,
+                        url: asset
+                    }
+                    setAssets((assets) => [...assets, object])
+                })
+            });
+        })
+        return unsubscribe
+    }, [id])
+
     function updateProject() {
         updateDoc(doc(db, "projects", id), project).then(() => {
             console.log('Updated')
         });
+        if (assetsToUpload.length > 0) {
+            const assets = assetsToUpload;
+            assets.forEach(asset => {
+                uploadBytes(ref(storage, id + '/' + asset.name), asset).then(() => {
+                    listAll(ref(storage, id)).then((res) => {
+                        setAssets([])
+                        res.items.forEach((item) => {
+                            getDownloadURL(item).then((asset) => {
+                                let object = {
+                                    name: item.name,
+                                    url: asset
+                                }
+                                setAssets((assets) => [...assets, object])
+                            })
+                        });
+                    })
+                });
+            })
+            setAssetsToUpload([]);
+        }
     }
 
     return (
         <div>
             <AdminLayout 
                 content={<Preview project={ project } setProject={ setProject } updateProject={ updateProject } />}
-                settings={<Settings project={ project } setProject={ setProject } updateProject={ updateProject } />}
+                settings={<Settings project={ project } setProject={ setProject } updateProject={ updateProject } assetsToUpload={assetsToUpload} setAssetsToUpload={setAssetsToUpload} assets={assets} setAssets={setAssets} id={id} />}
             />
         </div>
     )
@@ -135,7 +174,7 @@ function Preview({ project, setProject }) {
     )
 }
 
-function Settings({ project, setProject, updateProject }) {
+function Settings({ project, setProject, updateProject, assetsToUpload, setAssetsToUpload, assets, setAssets, id }) {
     const [showDetails, setShowDetails] = useState(true)
     const [showAssets, setShowAssets] = useState(true)
     const [showTerminal, setShowTerminal] = useState(false)
@@ -146,11 +185,36 @@ function Settings({ project, setProject, updateProject }) {
     function updateDetails(event) {
         setProject((projectOld) => ({
             ...projectOld,
-            published: event.target.checked,
             date: dateRef.current.value,
             name: nameRef.current.value,
             category: categoryRef.current.value
         }))
+    }
+    function updatePublished(event) {
+        setProject((projectOld) => ({
+            ...projectOld,
+            published: event.target.checked
+        }))
+    }
+    function updateThumbnail(event) {
+        setProject((projectOld) => ({
+            ...projectOld,
+            thumbnail: event.target.value
+        }))
+    }
+
+    function addAssets(event) {
+        let nameIsAvaliable = true
+        assetsToUpload.forEach(asset => {
+            if (asset.name === event.target.files[0].name) {
+                nameIsAvaliable = false
+            }
+        })
+        if (nameIsAvaliable) {
+            setAssetsToUpload([...assetsToUpload, event.target.files[0]])
+        } else {
+            console.log("File name is taken")
+        }
     }
 
     return (
@@ -176,9 +240,17 @@ function Settings({ project, setProject, updateProject }) {
                     {project &&
                         <div className="flex flex-col space-y-1">
                             <input type="date" defaultValue={project.date} ref={dateRef} onChange={updateDetails} />
-                            <input type="checkbox" defaultChecked={project.published} onChange={updateDetails} />
+                            <input type="checkbox" defaultChecked={project.published} onChange={updatePublished} />
                             <input type="text" defaultValue={project.name} placeholder="Name" ref={nameRef} onChange={updateDetails} />
                             <input type="text" defaultValue={project.category} placeholder="Category" ref={categoryRef} onChange={updateDetails} />
+                            <select onChange={updateThumbnail} value={project.thumbnail}>
+                                <option value=""></option>
+                            {assets.map(asset => (
+                                <option key={asset.name} value={asset.url}>
+                                {asset.name}
+                                </option>
+                            ))}
+                            </select>
                         </div>
                     }
                     </div>
@@ -201,7 +273,22 @@ function Settings({ project, setProject, updateProject }) {
                 </div>
                 {showAssets && 
                 <div>
-                    <input type="file" />
+                    {assets &&
+                        <div>
+                            {assets.map((asset) => (
+                                <p key={asset.name}>{asset.name}</p>
+                            ))}
+                        </div>
+                    }
+                    {/* <button onClick={test}>assets</button> */}
+                    <input type="file" onChange={addAssets}/>
+                    {assetsToUpload &&
+                        <div>
+                            {assetsToUpload.map((asset) => (
+                                <p key={asset.name}>{asset.name}</p>
+                            ))}
+                        </div>
+                    }
                 </div>
                 }
             </div>

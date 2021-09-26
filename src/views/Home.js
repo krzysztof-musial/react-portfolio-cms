@@ -60,7 +60,9 @@ export default function Home() {
                       variants={projectMotion} 
                       whileHover={{ scale: 1.1 }} 
                       whileTap={{ scale: 0.9 }} 
-                    ></motion.div>
+                    >
+                      <img className="w-full h-full sm:rounded-lg" src={project.thumbnail} alt="" />
+                    </motion.div>
                   </Link>
                 )
               })}
