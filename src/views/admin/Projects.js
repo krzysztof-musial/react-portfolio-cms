@@ -45,6 +45,8 @@ function ProjectsManager() {
         await addDoc(collection(db, "projects"), {
             name: projectNameRef.current.value,
             published: false,
+            // date: Timestamp.now(),
+            date: new Date().toISOString().split('T')[0],
             blocks: []
         });
     }

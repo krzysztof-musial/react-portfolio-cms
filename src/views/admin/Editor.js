@@ -21,7 +21,6 @@ export default function Editor() {
         updateDoc(doc(db, "projects", id), project).then(() => {
             console.log('Updated')
         });
-          
     }
 
     return (
@@ -138,22 +137,19 @@ function Preview({ project, setProject }) {
 
 function Settings({ project, setProject, updateProject }) {
     const [showDetails, setShowDetails] = useState(true)
+    const [showAssets, setShowAssets] = useState(true)
     const [showTerminal, setShowTerminal] = useState(false)
+    const dateRef = useRef()
     const nameRef = useRef()
     const categoryRef = useRef()
 
     function updateDetails(event) {
-        event.preventDefault()
-        setProject((projectOld) => ({
-            ...projectOld,
-            name: nameRef.current.value,
-            category: categoryRef.current.value
-        }))
-    }
-    function updatePublished(event) {
         setProject((projectOld) => ({
             ...projectOld,
             published: event.target.checked,
+            date: dateRef.current.value,
+            name: nameRef.current.value,
+            category: categoryRef.current.value
         }))
     }
 
@@ -179,12 +175,34 @@ function Settings({ project, setProject, updateProject }) {
                     <div>
                     {project &&
                         <div className="flex flex-col space-y-1">
-                            <input type="checkbox" defaultChecked={project.published} onChange={updatePublished} />
-                            <input type="text" defaultValue={project?.name} placeholder="Name" ref={nameRef} onChange={updateDetails} />
-                            <input type="text" defaultValue={project?.category} placeholder="Category" ref={categoryRef} onChange={updateDetails} />
+                            <input type="date" defaultValue={project.date} ref={dateRef} onChange={updateDetails} />
+                            <input type="checkbox" defaultChecked={project.published} onChange={updateDetails} />
+                            <input type="text" defaultValue={project.name} placeholder="Name" ref={nameRef} onChange={updateDetails} />
+                            <input type="text" defaultValue={project.category} placeholder="Category" ref={categoryRef} onChange={updateDetails} />
                         </div>
                     }
                     </div>
+                }
+            </div>
+            {/* Assets */}
+            <div className="flex flex-col space-y-4">
+                <div className="flex items-center justify-between cursor-pointer" onClick={() => setShowAssets(!showAssets)}>
+                    <p className="uppercase text-xs font-semibold">Assets</p>
+                    <div>
+                        {showAssets &&                         
+                        <svg className="w-4 h-4 stroke-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.9201 15.0499L13.4001 8.52989C12.6301 7.75989 11.3701 7.75989 10.6001 8.52989L4.08008 15.0499" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>}
+                        {!showAssets &&                          
+                        <svg className="w-4 h-4 stroke-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.9201 8.94995L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.94995" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>}
+                    </div>
+                </div>
+                {showAssets && 
+                <div>
+                    <input type="file" />
+                </div>
                 }
             </div>
             {/* Terminal */}
