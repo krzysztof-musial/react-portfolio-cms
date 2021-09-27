@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Link, NavLink } from 'react-router-dom'
 import Toggle from '../components/Toggle'
 import { AuthContext } from "../contexts/AuthContext"
