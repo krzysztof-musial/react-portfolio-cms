@@ -41,7 +41,7 @@ export default function AdminLayout(props) {
             )}
             </AnimatePresence>
             {/* Content */}
-            <div className="w-full h-screen overflow-y-auto">
+            <div className="w-full h-screen overflow-y-auto no-scrollbar">
                 <div className="sticky top-0 z-40">
                     <Navigation isMenu={isMenu} setIsMenu={setIsMenu} isAside={isAside} setIsAside={setIsAside} aside={props.aside} />
                 </div>
@@ -80,7 +80,7 @@ export default function AdminLayout(props) {
 
 function Navigation(props) {
     return (
-        <main className="flex items-center justify-between p-4 bg-white">
+        <main className="flex items-center justify-between p-4 bg-white border-b border-gray-200">
             <button onClick={() => props.setIsMenu(!props.isMenu)} className={`p-1.5 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 ${props.isMenu ? 'bg-gray-200 dark:bg-gray-700' : ''}`}>
                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3 18H12V16H3V18ZM3 13H21V11H3V13ZM3 8H21V6H3V8Z" />
