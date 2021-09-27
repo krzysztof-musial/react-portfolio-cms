@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link, NavLink } from 'react-router-dom'
 import Toggle from '../components/Toggle'
 import { AuthContext } from "../contexts/AuthContext"
+import { AdminLayoutContext } from '../contexts/AdminLayoutContext'
 
 export default function AdminLayout(props) {
-    const [isMenu, setIsMenu] = useState(false)
-    const [isAside, setIsAside] = useState(false)
+    const { isMenu, isAside, setIsMenu, setIsAside } = useContext(AdminLayoutContext)
     const center = props.center || undefined
     const menuWidth = '300px'
     const asideWidth = '300px'

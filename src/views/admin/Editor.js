@@ -6,6 +6,7 @@ import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import { db, storage } from '../../firebase'
 import { ParagraphEditor, HeadingEditor } from '../../components/Blocks';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 export default function Editor() {
     let { id } = useParams()
@@ -76,7 +77,7 @@ export default function Editor() {
     return (
         <div>
             <AdminLayout 
-                center={<Save updateProject={ updateProject } />}
+                center={<Buttons updateProject={ updateProject } id={id} />}
                 content={<Preview project={ project } setProject={ setProject } updateProject={ updateProject } />}
                 aside={<Aside project={ project } setProject={ setProject } updateProject={ updateProject } assetsToUpload={assetsToUpload} setAssetsToUpload={setAssetsToUpload} assets={assets} setAssets={setAssets} id={id} />}
             />
@@ -84,9 +85,16 @@ export default function Editor() {
     )
 }
 
-function Save({ updateProject }) {
+function Buttons({ updateProject, id }) {
     return (
-        <button onClick={updateProject} className="px-4 py-1.5 bg-indigo-600 rounded-lg text-sm font-medium text-white">Save project</button>
+        <div className="flex">
+            <button onClick={updateProject} className="px-4 h-8 flex items-center bg-indigo-600 rounded-lg rounded-r-none text-xs font-medium text-white hover:bg-indigo-700">Save project</button>
+            <Link 
+                to={{ pathname: `/id/${id}` }} 
+                key={id} 
+                className="px-4 h-8 flex items-center bg-indigo-500 rounded-lg rounded-l-none text-xs font-medium text-white hover:bg-indigo-400"
+            >Preview</Link>
+        </div>
     )
 }
 
