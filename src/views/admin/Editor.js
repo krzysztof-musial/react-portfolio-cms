@@ -66,7 +66,7 @@ export default function Editor() {
         <div>
             <AdminLayout 
                 content={<Preview project={ project } setProject={ setProject } updateProject={ updateProject } />}
-                settings={<Settings project={ project } setProject={ setProject } updateProject={ updateProject } assetsToUpload={assetsToUpload} setAssetsToUpload={setAssetsToUpload} assets={assets} setAssets={setAssets} id={id} />}
+                aside={<Settings project={ project } setProject={ setProject } updateProject={ updateProject } assetsToUpload={assetsToUpload} setAssetsToUpload={setAssetsToUpload} assets={assets} setAssets={setAssets} id={id} />}
             />
         </div>
     )
@@ -218,7 +218,7 @@ function Settings({ project, setProject, updateProject, assetsToUpload, setAsset
     }
 
     return (
-        <div className="p-4 border-l border-gray-200 bg-gray-50 h-full flex flex-col space-y-8">
+        <div className="p-4 bg-gray-50 flex flex-col space-y-8">
             <button onClick={updateProject}>Save</button>
             {/* Details */}
             <div className="flex flex-col space-y-4">
