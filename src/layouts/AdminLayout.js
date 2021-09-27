@@ -14,33 +14,28 @@ export default function AdminLayout(props) {
     return (
         <main className="relative overflow-hidden lg:flex">
             {/* Menu */}
-            <AnimatePresence>
-            {isMenu && (
-                <motion.div 
-                    className="absolute top-0 bg-gray-50 border-r h-screen overflow-auto no-scrollbar border-gray-200 lg:static flex-shrink-0 dark:bg-gray-800 z-50" 
-                    style={{ width: menuWidth }} 
-                    initial={{ marginLeft: '-' + menuWidth }} 
-                    animate={{ marginLeft: 0 }} 
-                    exit={{ marginLeft: '-' + menuWidth }} 
-                    transition={{ type: 'tween' }}
-                >
-                    <div className="p-4 flex items-center justify-between">
-                        <Link to="/" className="p-1.5 rounded-md bg-indigo-600 hover:bg-indigo-700">
-                            <svg className="w-5 h-5 fill-current text-white" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0 4.8555V27.1445C0 31.4616 5.17028 33.6237 8.19411 30.571L13.6323 25.0809L10.3253 21.8221C7.0683 18.6126 7.0683 13.3874 10.3253 10.1778L13.6323 6.91904L8.19411 1.42901C5.17028 -1.62366 0 0.538366 0 4.8555Z" />
-                                <path d="M25.5667 19.3447L30.6745 24.3781C31.5232 25.2144 32 26.3487 32 27.5315C32 31.5045 27.1254 33.4943 24.2745 30.6849L12.7667 19.3447C10.8922 17.4975 10.8922 14.5025 12.7667 12.6553L24.2745 1.31512C27.1254 -1.49425 32 0.495459 32 4.46851C32 5.65126 31.5232 6.78557 30.6745 7.6219L25.5667 12.6553C23.6922 14.5025 23.6922 17.4975 25.5667 19.3447Z" />
-                            </svg>
-                        </Link>
-                        <button onClick={() => setIsMenu(!isMenu)} className="p-1.5 rounded-md border border-gray-200 hover:bg-gray-200 lg:hidden">
-                            <svg className="w-5 h-5 fill-current transform rotate-45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13 13V19H11V13H5V11H11V5H13V11H19V13H13Z" />
-                            </svg>
-                        </button>
-                    </div>
-                    <Menu />
-                </motion.div>
-            )}
-            </AnimatePresence>
+            <motion.div 
+                className="absolute top-0 bg-gray-50 border-r h-screen overflow-auto no-scrollbar border-gray-200 lg:static flex-shrink-0 dark:bg-gray-800 z-50" 
+                style={{ width: menuWidth }} 
+                initial={{ marginLeft: isMenu ? 0 : '-' + menuWidth }} 
+                animate={{ marginLeft: isMenu ? 0 : '-' + menuWidth }} 
+                transition={{ type: 'tween' }}
+            >
+                <div className="p-4 flex items-center justify-between">
+                    <Link to="/" className="p-1.5 rounded-md bg-indigo-600 hover:bg-indigo-700">
+                        <svg className="w-5 h-5 fill-current text-white" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 4.8555V27.1445C0 31.4616 5.17028 33.6237 8.19411 30.571L13.6323 25.0809L10.3253 21.8221C7.0683 18.6126 7.0683 13.3874 10.3253 10.1778L13.6323 6.91904L8.19411 1.42901C5.17028 -1.62366 0 0.538366 0 4.8555Z" />
+                            <path d="M25.5667 19.3447L30.6745 24.3781C31.5232 25.2144 32 26.3487 32 27.5315C32 31.5045 27.1254 33.4943 24.2745 30.6849L12.7667 19.3447C10.8922 17.4975 10.8922 14.5025 12.7667 12.6553L24.2745 1.31512C27.1254 -1.49425 32 0.495459 32 4.46851C32 5.65126 31.5232 6.78557 30.6745 7.6219L25.5667 12.6553C23.6922 14.5025 23.6922 17.4975 25.5667 19.3447Z" />
+                        </svg>
+                    </Link>
+                    <button onClick={() => setIsMenu(!isMenu)} className="p-1.5 rounded-md border border-gray-200 hover:bg-gray-200 lg:hidden">
+                        <svg className="w-5 h-5 fill-current transform rotate-45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 13V19H11V13H5V11H11V5H13V11H19V13H13Z" />
+                        </svg>
+                    </button>
+                </div>
+                <Menu />
+            </motion.div>
             {/* Content */}
             <div className="w-full h-screen overflow-y-auto no-scrollbar">
                 <div className="sticky top-0 z-40">
@@ -50,30 +45,25 @@ export default function AdminLayout(props) {
             </div>
             {/* Aside */}
             {props.aside &&
-            <AnimatePresence>
-            {isAside && (
-                <motion.div 
-                    className="absolute top-0 right-0 bg-gray-50 border-l h-screen overflow-auto no-scrollbar border-gray-200 lg:static flex-shrink-0 dark:bg-gray-800 z-50" 
-                    style={{ width: asideWidth }} 
-                    initial={{ marginRight: '-' + asideWidth }} 
-                    animate={{ marginRight: 0 }} 
-                    exit={{ marginRight: '-' + asideWidth }} 
-                    transition={{ type: 'tween' }}
-                >
-                    <div className="p-4 flex items-center justify-between lg:justify-end">
-                        <button onClick={() => setIsAside(!isAside)} className="p-1.5 rounded-md border border-gray-200 hover:bg-gray-200 lg:hidden">
-                            <svg className="w-5 h-5 fill-current transform rotate-45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13 13V19H11V13H5V11H11V5H13V11H19V13H13Z" />
-                            </svg>
-                        </button>
-                        <div className="h-8 flex justify-center items-center">
-                            <Toggle />
-                        </div>
+            <motion.div 
+                className="absolute top-0 right-0 bg-gray-50 border-l h-screen overflow-auto no-scrollbar border-gray-200 lg:static flex-shrink-0 dark:bg-gray-800 z-50" 
+                style={{ width: asideWidth }} 
+                initial={{ marginRight: isAside ? 0 : '-' + asideWidth }}
+                animate={{ marginRight: isAside ? 0 : '-' + asideWidth }} 
+                transition={{ type: 'tween' }}
+            >
+                <div className="p-4 flex items-center justify-between lg:justify-end">
+                    <button onClick={() => setIsAside(!isAside)} className="p-1.5 rounded-md border border-gray-200 hover:bg-gray-200 lg:hidden">
+                        <svg className="w-5 h-5 fill-current transform rotate-45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 13V19H11V13H5V11H11V5H13V11H19V13H13Z" />
+                        </svg>
+                    </button>
+                    <div className="h-8 flex justify-center items-center">
+                        <Toggle />
                     </div>
-                    {props.aside}
-                </motion.div>
-            )}
-            </AnimatePresence>
+                </div>
+                {props.aside}
+            </motion.div>
             }
         </main>
     )

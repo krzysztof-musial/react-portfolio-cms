@@ -3,7 +3,7 @@ import React, { useState, createContext } from 'react'
 const  AdminLayoutContext  =  createContext();
 
 const AdminLayoutProvider = ({ children }) => {
-    const [isMenu, setIsMenu] = useState(true)
+    const [isMenu, setIsMenu] = useState(false)
     const [isAside, setIsAside] = useState(false)
 
     return (
