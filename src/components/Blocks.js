@@ -149,7 +149,7 @@ function EditorLayout(props) {
             {/* Editor */}
             <div>
                 {props.showEditor && 
-                    <div className="absolute top-0 left-0 w-full h-screen flex items-center justify-center z-10" style={{ background: 'rgba(0,0,0,.75)' }}>
+                    <div className="absolute top-0 left-0 w-full h-screen flex items-center justify-center" style={{ background: 'rgba(0,0,0,.75)', zIndex: 100 }}>
                         <div className="w-full max-w-screen-sm p-4 m-4 rounded-lg bg-white">
                             <button onClick={() => props.setShowEditor(false)}>X</button>
                             {props.form}

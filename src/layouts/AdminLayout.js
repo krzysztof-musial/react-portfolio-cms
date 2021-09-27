@@ -7,6 +7,7 @@ import { AuthContext } from "../contexts/AuthContext"
 export default function AdminLayout(props) {
     const [isMenu, setIsMenu] = useState(false)
     const [isAside, setIsAside] = useState(false)
+    const center = props.center || undefined
     const menuWidth = '300px'
     const asideWidth = '300px'
 
@@ -16,7 +17,7 @@ export default function AdminLayout(props) {
             <AnimatePresence>
             {isMenu && (
                 <motion.div 
-                    className="absolute top-0 bg-gray-50 border-r min-h-screen border-gray-200 lg:static flex-shrink-0 dark:bg-gray-800 z-50" 
+                    className="absolute top-0 bg-gray-50 border-r h-screen overflow-auto no-scrollbar border-gray-200 lg:static flex-shrink-0 dark:bg-gray-800 z-50" 
                     style={{ width: menuWidth }} 
                     initial={{ marginLeft: '-' + menuWidth }} 
                     animate={{ marginLeft: 0 }} 
@@ -30,7 +31,7 @@ export default function AdminLayout(props) {
                                 <path d="M25.5667 19.3447L30.6745 24.3781C31.5232 25.2144 32 26.3487 32 27.5315C32 31.5045 27.1254 33.4943 24.2745 30.6849L12.7667 19.3447C10.8922 17.4975 10.8922 14.5025 12.7667 12.6553L24.2745 1.31512C27.1254 -1.49425 32 0.495459 32 4.46851C32 5.65126 31.5232 6.78557 30.6745 7.6219L25.5667 12.6553C23.6922 14.5025 23.6922 17.4975 25.5667 19.3447Z" />
                             </svg>
                         </Link>
-                        <button onClick={() => setIsMenu(!isMenu)} className="p-1.5 rounded-md hover:bg-gray-200 lg:hidden">
+                        <button onClick={() => setIsMenu(!isMenu)} className="p-1.5 rounded-md border border-gray-200 hover:bg-gray-200 lg:hidden">
                             <svg className="w-5 h-5 fill-current transform rotate-45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M13 13V19H11V13H5V11H11V5H13V11H19V13H13Z" />
                             </svg>
@@ -43,7 +44,7 @@ export default function AdminLayout(props) {
             {/* Content */}
             <div className="w-full h-screen overflow-y-auto no-scrollbar">
                 <div className="sticky top-0 z-40">
-                    <Navigation isMenu={isMenu} setIsMenu={setIsMenu} isAside={isAside} setIsAside={setIsAside} aside={props.aside} />
+                    <Navigation isMenu={isMenu} setIsMenu={setIsMenu} isAside={isAside} setIsAside={setIsAside} aside={props.aside} center={center} />
                 </div>
                 {props.content}
             </div>
@@ -52,7 +53,7 @@ export default function AdminLayout(props) {
             <AnimatePresence>
             {isAside && (
                 <motion.div 
-                    className="absolute top-0 right-0 bg-gray-50 border-l min-h-screen border-gray-200 lg:static flex-shrink-0 dark:bg-gray-800 z-50" 
+                    className="absolute top-0 right-0 bg-gray-50 border-l h-screen overflow-auto no-scrollbar border-gray-200 lg:static flex-shrink-0 dark:bg-gray-800 z-50" 
                     style={{ width: asideWidth }} 
                     initial={{ marginRight: '-' + asideWidth }} 
                     animate={{ marginRight: 0 }} 
@@ -60,7 +61,7 @@ export default function AdminLayout(props) {
                     transition={{ type: 'tween' }}
                 >
                     <div className="p-4 flex items-center justify-between lg:justify-end">
-                        <button onClick={() => setIsAside(!isAside)} className="p-1.5 rounded-md hover:bg-gray-200 lg:hidden">
+                        <button onClick={() => setIsAside(!isAside)} className="p-1.5 rounded-md border border-gray-200 hover:bg-gray-200 lg:hidden">
                             <svg className="w-5 h-5 fill-current transform rotate-45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M13 13V19H11V13H5V11H11V5H13V11H19V13H13Z" />
                             </svg>
@@ -86,6 +87,7 @@ function Navigation(props) {
                     <path d="M3 18H12V16H3V18ZM3 13H21V11H3V13ZM3 8H21V6H3V8Z" />
                 </svg>
             </button>
+            {props.center}
             {props.aside &&
             <button onClick={() => props.setIsAside(!props.isAside)} className={`p-1.5 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 ${props.isAside ? 'bg-gray-200 dark:bg-gray-700' : ''}`}>
                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -105,9 +107,6 @@ function Navigation(props) {
 function Menu() {
     const { logout, currentUser } = useContext(AuthContext)
 
-    function handleLogout() {
-        logout()
-    }
     return (
         <div className="p-2 flex flex-col space-y-4 justify-between">
             <div className="bg-white rounded-lg border border-gray-200">
@@ -136,7 +135,7 @@ function Menu() {
                 </NavLink>
             </div>
             <div className="bg-white rounded-lg border border-gray-200">
-                <button onClick={handleLogout} className="p-2 flex items-center space-x-2 w-full hover:bg-gray-100 cursor-pointer transition">
+                <button onClick={logout} className="p-2 flex items-center space-x-2 w-full hover:bg-gray-100 cursor-pointer transition">
                     <div className="p-1.5">
                         <div className="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center font-semibold text-xs text-white">A</div>
                     </div>
