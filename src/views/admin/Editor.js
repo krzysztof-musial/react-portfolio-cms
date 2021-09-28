@@ -53,24 +53,19 @@ export default function Editor() {
             console.log('Updated')
         });
         if (assetsToUpload.length > 0) {
-            const assets = assetsToUpload;
+            const assets = assetsToUpload
+            setAssetsToUpload([])
             assets.forEach(asset => {
                 uploadBytes(ref(storage, id + '/' + asset.name), asset).then(() => {
-                    listAll(ref(storage, id)).then((res) => {
-                        setAssets([])
-                        res.items.forEach((item) => {
-                            getDownloadURL(item).then((asset) => {
-                                let object = {
-                                    name: item.name,
-                                    url: asset
-                                }
-                                setAssets((assets) => [...assets, object])
-                            })
-                        });
+                    getDownloadURL(ref(storage, id + '/' + asset.name)).then((url) => {
+                        let object = {
+                            name: asset.name,
+                            url: url
+                        }
+                        setAssets((assetsOld) => [...assetsOld, object])
                     })
-                });
+                })
             })
-            setAssetsToUpload([]);
         }
     }
 
@@ -230,16 +225,20 @@ function Aside({ project, setProject, assetsToUpload, setAssetsToUpload, assets 
         }))
     }
     function addAssets(event) {
-        let nameIsAvaliable = true
-        assetsToUpload.forEach(asset => {
-            if (asset.name === event.target.files[0].name) {
-                nameIsAvaliable = false
+        if (event.target.files[0]) {
+            let nameIsAvaliable = true
+            assetsToUpload.forEach(asset => {
+                if (asset.name === event.target.files[0].name) {
+                    nameIsAvaliable = false
+                }
+            })
+            if (nameIsAvaliable) {
+                setAssetsToUpload([...assetsToUpload, event.target.files[0]])
+            } else {
+                console.log("File name is taken")
             }
-        })
-        if (nameIsAvaliable) {
-            setAssetsToUpload([...assetsToUpload, event.target.files[0]])
         } else {
-            console.log("File name is taken")
+            console.log('canceled')
         }
     }
 
