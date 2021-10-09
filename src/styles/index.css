@@ -7,17 +7,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* input[type=text], input[type=email], input[type=password] {
-    @apply text-black rounded-lg border-gray-300 focus:border-indigo-600;
-}
-
-input[type=submit] {
-    @apply text-sm font-semibold rounded-xl py-4 bg-indigo-600 dark:bg-emerald-500 text-white cursor-pointer transition;
-}
-input[type=submit]:hover {
-    @apply bg-indigo-500 dark:bg-emerald-400;
-} */
-
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -27,4 +16,10 @@ input[type=submit]:hover {
 .no-scrollbar {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+
+/* Add placeholder to contentEditable div */
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-placeholder);
+    opacity: .5;
 }

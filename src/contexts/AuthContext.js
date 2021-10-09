@@ -5,11 +5,11 @@ import { auth } from "../firebase"
 const AuthContext = createContext("")
 
 const AuthProvider = ({ children }) => {
-    const [currentUser , setCurrentUser] = useState()
+    const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
 
     function login(email, password) {
-        return signInWithEmailAndPassword(auth, email, password)
+        signInWithEmailAndPassword(auth, email, password).then((data) => {console.log(data)})
     }
 
     function logout() {

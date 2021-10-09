@@ -1,6 +1,7 @@
+// TO DELETE
 import React, { useRef } from 'react'
 import { useState } from 'react/cjs/react.development'
-import Popup from './Popup'
+import Popup from '../components/Popup'
 
 function Paragraph({ block }) {
     return (

@@ -1,5 +1,6 @@
+// TO DELETE
 import React, { useRef, useState, useEffect } from 'react'
-import AdminLayout from '../../layouts/AdminLayout'
+import AdminLayout from '../AdminLayout'
 import { Link } from 'react-router-dom';
 // Firebase
 import { collection, addDoc, onSnapshot, orderBy, query, doc, deleteDoc } from "firebase/firestore"; 

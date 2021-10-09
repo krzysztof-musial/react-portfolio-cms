@@ -3,13 +3,13 @@ import { ThemeContext } from '../contexts/ThemeContext';
 
 export default function Toggle() {
     const { darkMode, handleThemeChange } = useContext(ThemeContext);
-    const darkClass = {
-        bg: "bg-emerald-400 hover:bg-emerald-500",
-        toggle: "ml-4"
-    }
     const lightClass = {
-        bg: "bg-indigo-600 hover:bg-indigo-500",
+        bg: "bg-gray-300 hover:bg-gray-400",
         toggle: "ml-0"
+    }
+    const darkClass = {
+        bg: "bg-green-500 hover:bg-green-600",
+        toggle: "ml-4"
     }
 
     return (

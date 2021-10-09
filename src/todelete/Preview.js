@@ -1,5 +1,6 @@
+// TO DELETE
 import React from 'react'
-import { Paragraph, Heading } from '../components/Blocks';
+import { Paragraph, Heading } from './Blocks';
 import { motion } from 'framer-motion';
 
 export default function Preview({ project }) {

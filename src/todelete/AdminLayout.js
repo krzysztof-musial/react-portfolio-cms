@@ -1,9 +1,10 @@
+// TO DELETE
 import React, { useContext } from 'react'
 import { motion } from 'framer-motion'
 import { Link, NavLink } from 'react-router-dom'
 import Toggle from '../components/Toggle'
 import { AuthContext } from "../contexts/AuthContext"
-import { AdminLayoutContext } from '../contexts/AdminLayoutContext'
+import { AdminLayoutContext } from './AdminLayoutContext'
 
 export default function AdminLayout(props) {
     const { isMenu, isAside, setIsMenu, setIsAside } = useContext(AdminLayoutContext)
