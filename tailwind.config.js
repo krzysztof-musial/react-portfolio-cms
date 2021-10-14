@@ -5,9 +5,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
       fontFamily: {
-          sans: ['Inter', 'sans-serif'],
+          sans: ['Roboto', 'sans-serif'],
           serif: ['Merriweather', 'serif'],
-          mono: ['Source Code Pro', 'monospace']
+          mono: ['Roboto Mono', 'monospace']
       },
       extend: {
           colors: {
@@ -29,7 +29,9 @@ module.exports = {
       },
   },
   variants: {
-    extend: {},
+    extend: {
+      borderWidth: ['last'],
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

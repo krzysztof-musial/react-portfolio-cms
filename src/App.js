@@ -5,11 +5,10 @@ import { ThemeContext } from "./contexts/ThemeContext"
 // Components
 import { PrivateRoute } from "./components/Routes"
 // Pages
-import HomePage from './views/HomePage'
-import ProjectPage from "./views/ProjectPage";
-import AdminPage from "./todelete/AdminPage";
-import { ProjectsPage } from "./views/ProjectsPage"
-import { EditorPage } from "./views/EditorPage"
+import { Home } from "./pages/Home";
+import { Project } from "./pages/Project";
+import { Dashboard } from './pages/Dashboard'
+import { Editor } from './pages/Editor'
 
 export default function App() {
   const { darkMode } = useContext(ThemeContext);
@@ -17,13 +16,12 @@ export default function App() {
   return (
     <div className={darkMode ? 'dark' : ''}>
       <Router>
-        <main className="w-full min-h-screen text-black bg-white dark:text-white dark:bg-trueGray-900">
+        <main className="w-full min-h-screen text-black bg-gray-50 dark:text-white dark:bg-gray-900">
           <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/id/:id" component={ProjectPage}/>
-            <PrivateRoute path="/editor/:id" component={EditorPage}/>
-            <PrivateRoute path="/projects" component={ProjectsPage} />
-            <PrivateRoute path="/admin" component={AdminPage} />
+            <Route exact path="/" component={Home} />
+            <Route path="/id/:id" component={Project}/>
+            <PrivateRoute path="/dashboard" component={Dashboard} />
+            <PrivateRoute path="/editor/:id" component={Editor}/>
           </Switch>
         </main>
       </Router>

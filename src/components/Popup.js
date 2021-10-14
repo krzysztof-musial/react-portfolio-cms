@@ -1,7 +1,9 @@
 import React, { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { IconLarge } from './Icons';
+import { ButtonLarge } from './Buttons';
 
-export default function Popup({ setPopupOpen, children, size }) {
+export const Popup = ({ setPopupOpen, icon, title, children }) => {
     const node = useRef();
   
     const handleOutsideClick = e => {
@@ -12,26 +14,39 @@ export default function Popup({ setPopupOpen, children, size }) {
     };
   
     useEffect(() => {
-      document.addEventListener("mousedown", handleOutsideClick);
-      return () => {
-        document.removeEventListener("mousedown", handleOutsideClick);
-      };
+        document.addEventListener("mousedown", handleOutsideClick);
+        return () => {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        };
     });
     
     return (
-        <motion.div 
-            className="w-full h-screen absolute top-0 left-0 flex items-center justify-center z-50" 
-            initial={{ background: 'rgba(0,0,0,0)' }} 
-            animate={{ background: 'rgba(0,0,0,.05)' }}
-        >
+        <div className="w-full h-screen absolute top-0 left-0 flex items-center justify-center z-50">
             <motion.div 
                 ref={node} 
-                className={`relative w-full max-w-${size || 'sm'} bg-white rounded-3xl shadow-2xl overflow-hidden z-50`} 
+                className={`relative w-full bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden z-50 dark:bg-gray-800 dark:border-gray-700`} 
+                style={{ maxWidth: '384px' }}
                 initial={{ y: 100 }} 
                 animate={{ y: 0 }} 
             >
-              {children}
+                {/* Header */}
+                <div className="p-8 flex flex-col space-y-4 items-center">
+                    <IconLarge>
+                        { icon }
+                    </IconLarge>
+                    <p>{ title }</p>
+                </div>
+                {/* Content */}
+                <div>
+                    {children}
+                </div>
+                {/* Footer */}
+                <div className="px-8 pt-2 pb-4 flex flex-col">
+                    <button onClick={() => setPopupOpen(false)}>
+                        <ButtonLarge text={'Close'} tailwind={'text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'} />
+                    </button>
+                </div>
             </motion.div>
-        </motion.div>
+        </div>
     )
 }
