@@ -5,6 +5,8 @@ import { useHistory } from 'react-router';
 import { Layout } from '../layouts/Layout'
 import { AssetSection, SpaceSection, TextSection } from '../components/Sections';
 import { motion } from 'framer-motion';
+import { IconSmall } from '../components/Icons';
+import { Sad } from '../components/SVG';
 
 export const Project = (props) => {
     const [project, setProject] = useState()
@@ -37,7 +39,7 @@ export const Project = (props) => {
 
     return (
         <Layout>
-            {project?.sections.length > 0 &&
+            {project?.sections?.length > 0 ?
                 <motion.div 
                     className="flex flex-col space-y-4 items-center pb-16"
                     variants={projectsMotion}
@@ -56,6 +58,13 @@ export const Project = (props) => {
                         </motion.div>
                     ))}
                 </motion.div>
+            :
+                <div className="mt-4 flex justify-center items-center opacity-50 space-x-1">
+                    <IconSmall tailwind={'p-1'}>
+                        <Sad />
+                    </IconSmall>
+                    <p className="text-sm">Work in progress</p>
+                </div>
             }
         </Layout>
     )

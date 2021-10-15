@@ -24,18 +24,20 @@ export const Popup = ({ setPopupOpen, icon, title, children }) => {
         <div className="w-full h-screen absolute top-0 left-0 flex items-center justify-center z-50">
             <motion.div 
                 ref={node} 
-                className={`relative w-full bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden z-50 dark:bg-gray-800 dark:border-gray-700`} 
+                className={`relative w-full bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden z-50 dark:bg-myGray-800 dark:border-myGray-700`} 
                 style={{ maxWidth: '384px' }}
                 initial={{ y: 100 }} 
                 animate={{ y: 0 }} 
             >
                 {/* Header */}
-                <div className="p-8 flex flex-col space-y-4 items-center">
-                    <IconLarge>
-                        { icon }
-                    </IconLarge>
-                    <p>{ title }</p>
-                </div>
+                {(icon || title) &&
+                    <div className="p-8 flex flex-col space-y-4 items-center">
+                        <IconLarge>
+                            { icon }
+                        </IconLarge>
+                        <p>{ title }</p>
+                    </div>
+                }
                 {/* Content */}
                 <div>
                     {children}
@@ -43,7 +45,7 @@ export const Popup = ({ setPopupOpen, icon, title, children }) => {
                 {/* Footer */}
                 <div className="px-8 pt-2 pb-4 flex flex-col">
                     <button onClick={() => setPopupOpen(false)}>
-                        <ButtonLarge text={'Close'} tailwind={'text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'} />
+                        <ButtonLarge text={'Close'} tailwind={'text-gray-400 hover:bg-gray-100 dark:hover:bg-myGray-700'} />
                     </button>
                 </div>
             </motion.div>

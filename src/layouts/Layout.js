@@ -34,7 +34,7 @@ const Header = () => {
     return (
         <div className="w-full flex items-center justify-between">
             <Link to={'/'}>
-                <Icon tailwind={'bg-gray-900 dark:bg-violet-600'}>
+                <Icon tailwind={'bg-gray-900 border-2 border-transparent dark:border-white'}>
                     <Logo tailwind={'text-white'} />
                 </Icon>
             </Link>
@@ -42,13 +42,13 @@ const Header = () => {
                 {currentUser &&
                     <div className="flex items-center space-x-2">
                         <Link to={'/dashboard'}>
-                            <Icon tailwind={'p-1 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700'}>
-                                <Dashboard tailwind={'text-gray-700 dark:text-gray-100'} />
+                            <Icon tailwind={'p-1 bg-gray-200 hover:bg-gray-300 dark:bg-myGray-800 dark:hover:bg-myGray-700'}>
+                                <Dashboard tailwind={'text-gray-700 dark:text-myGray-50'} />
                             </Icon>
                         </Link>
                         <button onClick={() => logout()}>
-                            <Icon tailwind={'p-1 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700'}>
-                                <Close tailwind={'text-gray-700 dark:text-gray-100'} />
+                            <Icon tailwind={'p-1 bg-gray-200 hover:bg-gray-300 dark:bg-myGray-800 dark:hover:bg-myGray-700'}>
+                                <Close tailwind={'text-gray-700 dark:text-myGray-50'} />
                             </Icon>
                         </button>
                     </div>
@@ -63,12 +63,12 @@ const Header = () => {
                                     </IconSmall>
                                 } 
                                 text={'Contact'} 
-                                tailwind={'bg-blue-600 text-white hover:bg-blue-500 dark:bg-gray-800 dark:hover:bg-gray-700'} 
+                                tailwind={'bg-blue-600 text-white hover:bg-blue-500 dark:bg-myGray-800 dark:hover:bg-myGray-700'} 
                             />
                         </button>
                         <button onClick={() => setLoginPopupOpen(true)}>
-                            <Icon tailwind={'p-1 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700'}>
-                                <Shield tailwind={'text-gray-700 dark:text-gray-100'} />
+                            <Icon tailwind={'p-1 bg-gray-200 hover:bg-gray-300 dark:bg-myGray-800 dark:hover:bg-myGray-700'}>
+                                <Shield tailwind={'text-gray-700 dark:text-myGray-50'} />
                             </Icon>
                         </button>
                     </div>
@@ -78,12 +78,12 @@ const Header = () => {
                 </div>
             </div>
             {loginPopupOpen &&
-                <Popup setPopupOpen={setLoginPopupOpen} icon={<Shield tailwind={'text-blue-600 dark:text-violet-500'} />} title={'Sign in to the admin account'} >
+                <Popup setPopupOpen={setLoginPopupOpen} icon={<Shield tailwind={'text-blue-600 dark:text-purple-500'} />} title={'Sign in to the admin account'} >
                     <LoginPopup setPopupOpen={setLoginPopupOpen} />
                 </Popup>
             }
             {contactPopupOpen &&
-                <Popup setPopupOpen={setContactPopupOpen} icon={<Message tailwind={'text-blue-600 dark:text-violet-500'} />} title={'Send me a message'} >
+                <Popup setPopupOpen={setContactPopupOpen} icon={<Message tailwind={'text-blue-600 dark:text-purple-500'} />} title={'Send me a message'} >
                     <ContactPopup setPopupOpen={setContactPopupOpen} />
                 </Popup>
             }
@@ -115,17 +115,17 @@ const ContactPopup = ({ setPopupOpen }) => {
     return (
         <form onSubmit={handleSend} className="flex flex-col space-y-8 px-8">
             <div className="flex flex-col space-y-2">
-                <input ref={nameRef} type="text" placeholder="Name" className="rounded-lg border-gray-200 dark:bg-gray-700 dark:border-gray-800 dark:ring-violet-500" />
-                <input ref={emailRef} type="email" placeholder="Email" className="rounded-lg border-gray-200 dark:bg-gray-700 dark:border-gray-800 dark:ring-violet-500" />
+                <input ref={nameRef} type="text" placeholder="Name" className="rounded-lg border-gray-200 dark:bg-myGray-700 dark:border-myGray-800" />
+                <input ref={emailRef} type="email" placeholder="Email" className="rounded-lg border-gray-200 dark:bg-myGray-700 dark:border-myGray-800" />
                 <textarea 
                     ref={messageRef} 
-                    className="rounded-lg border-gray-200 dark:bg-gray-700 dark:border-gray-800 dark:ring-violet-500" 
+                    className="rounded-lg border-gray-200 dark:bg-myGray-700 dark:border-myGray-800" 
                     placeholder="Message" 
                     style={{ minHeight: '100px' }}
                 ></textarea>
             </div>
             <button type="submit">
-                <ButtonLarge text={'Send'} tailwind={'bg-blue-600 text-white hover:bg-blue-500 dark:bg-violet-500 dark:hover:bg-violet-600'} />
+                <ButtonLarge text={'Send'} tailwind={'text-white bg-blue-600 hover:bg-blue-500 dark:bg-purple-500 dark:hover:bg-purple-400'} />
             </button>
         </form>
     )
@@ -145,11 +145,11 @@ const LoginPopup = ({ setPopupOpen }) => {
     return (
         <form onSubmit={handleLogin} className="flex flex-col space-y-8 px-8">
             <div className="flex flex-col space-y-2">
-                <input ref={emailRef} type="email" placeholder="Email" className="rounded-lg border-gray-200 dark:bg-gray-700 dark:border-gray-800" />
-                <input ref={passwordRef} type="password" placeholder="Password" className="rounded-lg border-gray-200 dark:bg-gray-700 dark:border-gray-800" />
+                <input ref={emailRef} type="email" placeholder="Email" className="rounded-lg border-gray-200 dark:bg-myGray-700 dark:border-myGray-800" />
+                <input ref={passwordRef} type="password" placeholder="Password" className="rounded-lg border-gray-200 dark:bg-myGray-700 dark:border-myGray-800" />
             </div>
             <button type="submit">
-                <ButtonLarge text={'Login'} tailwind={'bg-blue-600 text-white hover:bg-blue-500 dark:bg-violet-500 dark:hover:bg-violet-600'} />
+                <ButtonLarge text={'Login'} tailwind={'text-white bg-blue-600 hover:bg-blue-500 dark:bg-purple-500 dark:hover:bg-purple-400'} />
             </button>
         </form>
     )

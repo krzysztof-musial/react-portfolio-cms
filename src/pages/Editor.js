@@ -359,15 +359,17 @@ const ProjectSections = ({ id, project, setProject, assets }) => {
     return (
         <div className="pb-8">
             {/* Sections */}
-            <div className="flex flex-col space-y-8 mb-8">
-                {project.sections?.map((section, index) => (
-                    <motion.div key={section.id} className="w-full flex items-center justify-between" layout>
-                            {section.type === 'text' && <TextEditor section={section} index={index} updateSection={updateSection} moveSection={moveSection} deleteSection={deleteSection} /> }
-                            {section.type === 'space' && <SpaceEditor section={section} index={index} updateSection={updateSection} moveSection={moveSection} deleteSection={deleteSection} /> }
-                            {section.type === 'asset' && <AssetEditor section={section} index={index} updateSection={updateSection} moveSection={moveSection} deleteSection={deleteSection} assets={assets} /> }
-                    </motion.div>
-                ))}
-            </div>
+            {project.sections?.length > 0 &&
+                <div className="flex flex-col space-y-8 mb-8">
+                    {project.sections?.map((section, index) => (
+                        <motion.div key={section.id} className="w-full flex items-center justify-between" layout>
+                                {section.type === 'text' && <TextEditor section={section} index={index} updateSection={updateSection} moveSection={moveSection} deleteSection={deleteSection} /> }
+                                {section.type === 'space' && <SpaceEditor section={section} index={index} updateSection={updateSection} moveSection={moveSection} deleteSection={deleteSection} /> }
+                                {section.type === 'asset' && <AssetEditor section={section} index={index} updateSection={updateSection} moveSection={moveSection} deleteSection={deleteSection} assets={assets} /> }
+                        </motion.div>
+                    ))}
+                </div>
+            }
             {/* Settings */}
             <div className="w-full h-8 flex items-center justify-between">
                 <div className="flex items-center space-x-2">

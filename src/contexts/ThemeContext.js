@@ -30,7 +30,7 @@ const ThemeToggle = () => {
         toggle: "ml-0"
     }
     const darkClass = {
-        bg: "bg-violet-500 hover:bg-violet-600",
+        bg: "bg-purple-500 hover:bg-purple-400",
         toggle: "ml-4"
     }
 

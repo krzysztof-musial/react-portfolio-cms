@@ -27,7 +27,7 @@ export const Home = () => {
     }, []);
 
     const projectsMotion = {
-        hidden: { opacity: 0 },
+        hidden: { opacity: 1 },
         show: {
           opacity: 1,
           transition: {
@@ -52,10 +52,10 @@ export const Home = () => {
                     {projects.map((project) => (
                         <Link to={{ pathname: `/id/${project.id}` }} key={project.id}>
                             <motion.div 
-                                className="sm:rounded-lg aspect-w-1 aspect-h-1 border border-gray-200 dark:border-black overflow-hidden"
+                                className="sm:rounded-lg aspect-w-1 aspect-h-1 overflow-hidden border border-white dark:border-myGray-700"
                                 variants={projectMotion}
-                                whileHover={{ scale: 1.1, boxShadow: '8px 16px 8px rgba(0, 0, 0, 0.02)' }}
-                                whileTap={{ scale: 0.9 }}
+                                // whileHover={{ scale: 1.1, boxShadow: '8px 16px 8px rgba(0, 0, 0, 0.02)' }}
+                                // whileTap={{ scale: 0.9 }}
                             >
                                 <Thumbnail project={project} />
                             </motion.div>

@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
 
     function login(email, password) {
-        signInWithEmailAndPassword(auth, email, password).then((data) => {console.log(data)})
+        signInWithEmailAndPassword(auth, email, password)
     }
 
     function logout() {
