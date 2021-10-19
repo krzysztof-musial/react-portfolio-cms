@@ -15,16 +15,16 @@ export default function App() {
 
   return (
     <div className={darkMode ? 'dark' : ''}>
-      <Router>
-        <main className="w-full min-h-screen text-black bg-gray-50 dark:text-white dark:bg-myGray-900">
+      <main className="w-full min-h-screen text-black bg-gray-50 dark:text-white dark:bg-myGray-900">
+        <Router>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/id/:id" component={Project}/>
             <PrivateRoute path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/editor/:id" component={Editor}/>
           </Switch>
-        </main>
-      </Router>
+        </Router>
+      </main>
     </div>
   )
 }

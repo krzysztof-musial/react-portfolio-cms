@@ -45,7 +45,7 @@ export const Popup = ({ setPopupOpen, icon, title, children }) => {
                 {/* Footer */}
                 <div className="px-8 pt-2 pb-4 flex flex-col">
                     <button onClick={() => setPopupOpen(false)}>
-                        <ButtonLarge text={'Close'} tailwind={'text-gray-400 hover:bg-gray-100 dark:hover:bg-myGray-700'} />
+                        <ButtonLarge text={'Close'} tailwind={'button-secondary'} />
                     </button>
                 </div>
             </motion.div>

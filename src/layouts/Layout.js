@@ -106,26 +106,23 @@ const ContactPopup = ({ setPopupOpen }) => {
             unread: true,
         }).then(() => {
             setPopupOpen(false)
-            // nameRef.current.value = ""
-            // emailRef.current.value = ""
-            // messageRef.current.value = ""
         })
     }
 
     return (
         <form onSubmit={handleSend} className="flex flex-col space-y-8 px-8">
             <div className="flex flex-col space-y-2">
-                <input ref={nameRef} type="text" placeholder="Name" className="rounded-lg border-gray-200 dark:bg-myGray-700 dark:border-myGray-800" />
-                <input ref={emailRef} type="email" placeholder="Email" className="rounded-lg border-gray-200 dark:bg-myGray-700 dark:border-myGray-800" />
+                <input ref={nameRef} type="text" placeholder="Name" className="input" />
+                <input ref={emailRef} type="email" placeholder="Email" className="input" />
                 <textarea 
                     ref={messageRef} 
-                    className="rounded-lg border-gray-200 dark:bg-myGray-700 dark:border-myGray-800" 
+                    className="input" 
                     placeholder="Message" 
                     style={{ minHeight: '100px' }}
                 ></textarea>
             </div>
             <button type="submit">
-                <ButtonLarge text={'Send'} tailwind={'text-white bg-blue-600 hover:bg-blue-500 dark:bg-purple-500 dark:hover:bg-purple-400'} />
+                <ButtonLarge text={'Send'} tailwind={'button-primary'} />
             </button>
         </form>
     )
@@ -145,11 +142,11 @@ const LoginPopup = ({ setPopupOpen }) => {
     return (
         <form onSubmit={handleLogin} className="flex flex-col space-y-8 px-8">
             <div className="flex flex-col space-y-2">
-                <input ref={emailRef} type="email" placeholder="Email" className="rounded-lg border-gray-200 dark:bg-myGray-700 dark:border-myGray-800" />
-                <input ref={passwordRef} type="password" placeholder="Password" className="rounded-lg border-gray-200 dark:bg-myGray-700 dark:border-myGray-800" />
+                <input ref={emailRef} type="email" placeholder="Email" className="input" />
+                <input ref={passwordRef} type="password" placeholder="Password" className="input" />
             </div>
             <button type="submit">
-                <ButtonLarge text={'Login'} tailwind={'text-white bg-blue-600 hover:bg-blue-500 dark:bg-purple-500 dark:hover:bg-purple-400'} />
+                <ButtonLarge text={'Login'} tailwind={'button-primary'} />
             </button>
         </form>
     )

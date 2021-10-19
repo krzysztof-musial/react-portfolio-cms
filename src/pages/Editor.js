@@ -12,7 +12,7 @@ import { IconSmall } from '../components/Icons';
 import { Close, Folder, Image, Plus, Settings, Space, Text, Tick, Video } from '../components/SVG';
 import { Popup } from '../components/Popup';
 import { Button, ButtonLarge } from '../components/Buttons';
-import { SpaceEditor, TextEditor, sectionsTypes, AssetEditor } from '../components/Sections';
+import { SpaceEditor, TextEditor, sectionsTypes, AssetEditor, TagEditor, LinksEditor } from '../components/Sections';
 import { Thumbnail } from '../components/Thumbnail';
 
 export const Editor = () => {
@@ -366,6 +366,8 @@ const ProjectSections = ({ id, project, setProject, assets }) => {
                                 {section.type === 'text' && <TextEditor section={section} index={index} updateSection={updateSection} moveSection={moveSection} deleteSection={deleteSection} /> }
                                 {section.type === 'space' && <SpaceEditor section={section} index={index} updateSection={updateSection} moveSection={moveSection} deleteSection={deleteSection} /> }
                                 {section.type === 'asset' && <AssetEditor section={section} index={index} updateSection={updateSection} moveSection={moveSection} deleteSection={deleteSection} assets={assets} /> }
+                                {section.type === 'tag' && <TagEditor section={section} index={index} updateSection={updateSection} moveSection={moveSection} deleteSection={deleteSection} /> }
+                                {section.type === 'links' && <LinksEditor section={section} index={index} updateSection={updateSection} moveSection={moveSection} deleteSection={deleteSection} /> }
                         </motion.div>
                     ))}
                 </div>
@@ -389,6 +391,16 @@ const ProjectSections = ({ id, project, setProject, assets }) => {
                     <button onClick={() => addSection('asset')}>
                         <IconSmall>
                             <Image tailwind={'text-gray-300 hover:text-gray-500'} />
+                        </IconSmall>
+                    </button>
+                    <button onClick={() => addSection('tag')}>
+                        <IconSmall>
+                            <Text tailwind={'text-gray-300 hover:text-gray-500'} />
+                        </IconSmall>
+                    </button>
+                    <button onClick={() => addSection('links')}>
+                        <IconSmall>
+                            <Text tailwind={'text-gray-300 hover:text-gray-500'} />
                         </IconSmall>
                     </button>
                 </div>

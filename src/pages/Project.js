@@ -3,13 +3,11 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from '../firebase'
 import { useHistory } from 'react-router';
 import { Layout } from '../layouts/Layout'
-import { AssetSection, SpaceSection, TextSection } from '../components/Sections';
+import { AssetSection, LinksSection, SpaceSection, TagSection, TextSection } from '../components/Sections';
 import { motion } from 'framer-motion';
-import { IconSmall } from '../components/Icons';
-import { Sad } from '../components/SVG';
 
 export const Project = (props) => {
-    const [project, setProject] = useState()
+    const [project, setProject] = useState({})
     const history = useHistory()
 
     useEffect(() => {
@@ -28,7 +26,7 @@ export const Project = (props) => {
         show: {
           opacity: 1,
           transition: {
-            staggerChildren: 0.2,
+            staggerChildren: 0.3,
           },
         },
     };
@@ -39,7 +37,7 @@ export const Project = (props) => {
 
     return (
         <Layout>
-            {project?.sections?.length > 0 ?
+            {project.sections?.length > 0 ?
                 <motion.div 
                     className="flex flex-col space-y-4 items-center pb-16"
                     variants={projectsMotion}
@@ -55,15 +53,14 @@ export const Project = (props) => {
                             {section.type === 'text' && <TextSection section={section} /> }
                             {section.type === 'space' && <SpaceSection section={section} /> }
                             {section.type === 'asset' && <AssetSection section={section} /> }
+                            {section.type === 'tag' && <TagSection section={section} /> }
+                            {section.type === 'links' && <LinksSection section={section} /> }
                         </motion.div>
                     ))}
                 </motion.div>
             :
-                <div className="mt-4 flex justify-center items-center opacity-50 space-x-1">
-                    <IconSmall tailwind={'p-1'}>
-                        <Sad />
-                    </IconSmall>
-                    <p className="text-sm">Work in progress</p>
+                <div className="w-full max-w-screen-md m-auto">
+                    {/* Loading */}
                 </div>
             }
         </Layout>
